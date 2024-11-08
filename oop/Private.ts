@@ -1,20 +1,25 @@
 export class MyDate {
   year: number;
   month: number;
-  day: number;
+  private day: number;
 
   constructor(year: number, month: number, day: number) {
     this.year = year;
     this.month = month;
     this.day = day;
-  //   you can also use
-  //   public year: number,
-  //   public month: number,
-  //   public day: number,
   }
 
   printFormat(): string {
-    return `${this.day}/${this.month}/${this.year}`;
+    const day = this.addPadding(this.day);
+    const month = this.addPadding(this.month);
+    return `${day}/${month}/${this.year}`;
+  }
+
+  private addPadding(value: number) {
+    if (value < 10) {
+      return `0${value}`;
+    }
+    return `${value}`;
   }
 
   add(amount: number, type: 'days' | 'months' | 'years') {
@@ -28,14 +33,12 @@ export class MyDate {
       this.year += amount;
     }
   }
+
+  getDay() {
+    return this.day;
+  }
 }
 
-const myDate = new MyDate(1993, 7, 9);
+const myDate = new MyDate(1993, 7, 10);
 console.log(myDate.printFormat());
-myDate.add(3, 'days');
-console.log(myDate.printFormat());
-myDate.add(1, 'months');
-console.log(myDate.printFormat());
-console.log(myDate.day);
-console.log(myDate.month);
-console.log(myDate.year);
+console.log(myDate.getDay());
